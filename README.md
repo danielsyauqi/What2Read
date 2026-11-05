@@ -1,8 +1,4 @@
-<p align="center">
-  <img src="assets/what2read-logo.svg" alt="What2Read open book and chat bubbles logo" width="180">
-</p>
-
-<h1 align="center">What2Read</h1>
+<h1 align="center"><img src="assets/what2read-logo.svg" alt="" width="48" height="48"> What2Read</h1>
 
 A small, local WhatsApp reader for Codex. Pair a linked device, choose specific chats or groups in a terminal, then let Codex list, read and search only those chats through MCP.
 
