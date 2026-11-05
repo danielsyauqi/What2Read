@@ -13,7 +13,7 @@ This is an early, unofficial tool built on [Baileys](https://github.com/WhiskeyS
 ## Set up
 
 ```sh
-cd /Users/syauqi/Code/What2Read
+cd /Users/syauqi/Documents/ChatGPT/What2Read
 npm ci
 npm link
 what2read connect
@@ -32,12 +32,18 @@ Only messages received or synced **after a chat is selected** are saved. Pairing
 
 ## Connect Codex
 
-Add this to your local Codex MCP configuration (usually `~/.codex/config.toml`). Replace the project path with your actual path:
+Register the local MCP server with Codex:
+
+```sh
+codex mcp add what2read -- node /Users/syauqi/Documents/ChatGPT/What2Read/src/cli.js mcp
+```
+
+Alternatively, add this to your local Codex MCP configuration (usually `~/.codex/config.toml`):
 
 ```toml
 [mcp_servers.what2read]
 command = "node"
-args = ["/Users/syauqi/Code/What2Read/src/cli.js", "mcp"]
+args = ["/Users/syauqi/Documents/ChatGPT/What2Read/src/cli.js", "mcp"]
 ```
 
 Restart Codex so it loads the server. Then ask, for example: “List my selected WhatsApp chats,” or “Search my selected UAT group for reports about bill categories.” The MCP server offers `selected_chats`, `read_messages`, and `search_messages`.
