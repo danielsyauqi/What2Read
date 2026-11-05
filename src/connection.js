@@ -12,6 +12,7 @@ export async function connect(store) {
   fs.chmodSync(authDirectory, 0o700);
   let delay = 2_000;
   let stopped = false;
+  let reconnectAttempts = 0;
 
   process.once('SIGINT', () => { stopped = true; process.exit(0); });
   process.once('SIGTERM', () => { stopped = true; process.exit(0); });
@@ -21,7 +22,7 @@ export async function connect(store) {
     const socket = makeWASocket({
       auth: state,
       logger,
-      browser: Browsers.macOS('Desktop'),
+      browser: Browsers.macOS('Chrome'),
       markOnlineOnConnect: false,
       syncFullHistory: true,
       shouldSyncHistoryMessage: () => true,
@@ -50,6 +51,7 @@ export async function connect(store) {
       }
       if (connection === 'open') {
         delay = 2_000;
+        reconnectAttempts = 0;
         console.log('Connected. Run `what2read chats` in another terminal, then `what2read select`. Keep this process running for new messages.');
         try {
           const groups = await socket.groupFetchAllParticipating();
@@ -65,7 +67,14 @@ export async function connect(store) {
         process.exitCode = 1;
         return;
       }
-      console.error(`Connection closed. Reconnecting in ${Math.ceil(delay / 1000)} seconds.`);
+      const reason = Number.isInteger(status) ? ` (status ${status})` : '';
+      if (reconnectAttempts >= 4) {
+        console.error(`Connection closed${reason}. Stopped after four retries. Check your connection and try again later.`);
+        process.exitCode = 1;
+        return;
+      }
+      reconnectAttempts += 1;
+      console.error(`Connection closed${reason}. Reconnecting in ${Math.ceil(delay / 1000)} seconds.`);
       setTimeout(() => {
         start().catch(error => console.error(`Reconnect failed: ${error.message}`));
       }, delay);
