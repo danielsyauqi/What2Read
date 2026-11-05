@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="title">
+  <title id="title">What2Read logo</title>
+  <path fill="#315A9E" d="M126 70C101 45 74 35 40 37c-13 1-20 11-20 24v100c0 11 7 18 20 22l-11 28c-2 6 5 11 11 7l33-26c20 1 39 9 53 24V70Z"/>
+  <path fill="#08BFAF" d="M130 70c25-25 52-35 86-33 13 1 20 11 20 24v100c0 11-7 18-20 22l11 28c2 6-5 11-11 7l-33-26c-20 1-39 9-53 24V70Z"/>
+  <path fill="#F7FAFC" d="M118 71c4 6 7 9 10 10 3-1 6-4 10-10v104l-10-11-10 11V71Z"/>
+</svg>
