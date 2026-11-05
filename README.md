@@ -10,12 +10,20 @@ This is an early, unofficial tool built on [Baileys](https://github.com/WhiskeyS
 - A WhatsApp account that can link a desktop device
 - Codex with a local stdio MCP configuration
 
-## Set up
+## Install
+
+Clone this repository on the computer that runs Codex and has access to your WhatsApp account:
 
 ```sh
-cd /Users/syauqi/Documents/ChatGPT/What2Read
+git clone https://github.com/danielsyauqi/What2Read.git
+cd What2Read
 npm ci
 npm link
+```
+
+Run the listener:
+
+```sh
 what2read connect
 ```
 
@@ -32,21 +40,20 @@ Only messages received or synced **after a chat is selected** are saved. Pairing
 
 ## Connect Codex
 
-Register the local MCP server with Codex:
+From the `What2Read` directory, register the local MCP server with Codex. On macOS or Linux:
 
 ```sh
-codex mcp add what2read -- node /Users/syauqi/Documents/ChatGPT/What2Read/src/cli.js mcp
+codex mcp add what2read -- node "$(pwd)/src/cli.js" mcp
 ```
 
-Alternatively, add this to your local Codex MCP configuration (usually `~/.codex/config.toml`):
+On Windows PowerShell:
 
-```toml
-[mcp_servers.what2read]
-command = "node"
-args = ["/Users/syauqi/Documents/ChatGPT/What2Read/src/cli.js", "mcp"]
+```powershell
+$cli = (Resolve-Path .\src\cli.js).Path
+codex mcp add what2read -- node $cli mcp
 ```
 
-Restart Codex so it loads the server. Then ask, for example: “List my selected WhatsApp chats,” or “Search my selected UAT group for reports about bill categories.” The MCP server offers `selected_chats`, `read_messages`, and `search_messages`.
+Run `codex mcp get what2read` to check the registration. Restart Codex so it loads the server. Then ask, for example: “List my selected WhatsApp chats,” or “Search my selected UAT group for reports about bill categories.” The MCP server offers `selected_chats`, `read_messages`, and `search_messages`. If you move the repository later, register it again from its new location.
 
 The MCP server only opens local data files. It never opens a WhatsApp connection, and it has no send or mark-as-read tools. The separate `connect` process uses an unofficial linked-device protocol, so its underlying network behaviour cannot be guaranteed to be completely passive.
 
