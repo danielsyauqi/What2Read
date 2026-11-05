@@ -1,0 +1,25 @@
+{
+  "name": "what2read",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "A locally scoped, read-only WhatsApp MCP server",
+  "bin": {
+    "what2read": "./src/cli.js"
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "test": "node --test",
+    "check": "node --check src/cli.js && node --check src/store.js && node --check src/connection.js && node --check src/mcp.js && npm test"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/server": "2.4.0",
+    "@whiskeysockets/baileys": "7.0.0-rc14",
+    "pino": "10.4.0",
+    "qrcode-terminal": "0.12.0",
+    "zod": "4.6.7"
+  }
+}
